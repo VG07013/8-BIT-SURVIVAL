@@ -2,9 +2,10 @@
 <html>
 <head>
     <title>8BIT SURVIVAL: PRO DUELS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
-        body { background: #000; color: #aaa; margin: 0; font-family: 'Courier New', monospace; overflow: hidden; height: 100vh; display: flex; flex-direction: column; }
+        body { background: #000; color: #aaa; margin: 0; font-family: 'Courier New', monospace; overflow: hidden; height: 100vh; height: 100dvh; display: flex; flex-direction: column; }
         body.no-animations *, body.no-animations *::before, body.no-animations *::after {
             animation: none !important;
             transition: none !important;
@@ -30,8 +31,8 @@
             -webkit-user-select: none !important;
             user-select: none !important;
         }
-        #main-wrapper { display: flex; flex-direction: row; flex-grow: 1; overflow: hidden; position: relative; }
-        #game-area { position: relative; flex-grow: 1; display: flex; justify-content: center; align-items: center; background: #050505; border: 2px solid rgba(128,128,128,0.25); border-radius: 4px; box-sizing: border-box; }
+        #main-wrapper { display: flex; flex-direction: row; flex-grow: 1; min-height: 0; overflow: hidden; position: relative; }
+        #game-area { position: relative; flex-grow: 1; min-width: 0; min-height: 0; display: flex; justify-content: center; align-items: center; background: #050505; border: 2px solid rgba(128,128,128,0.25); border-radius: 4px; box-sizing: border-box; }
         #menu, #save-screen, #skin-picker, #stats-screen, #duel-screen, #more-screen, #levels-screen, #profile-screen, #friends-screen, #leaderboard-screen, #global-stats-screen, #settings-screen, #admin-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #000; z-index: 200; border: 4px solid #1a1a1a; box-sizing: border-box; animation: ui-screen-in 0.26s ease-out; }
         #save-screen, #skin-picker, #stats-screen, #duel-screen, #more-screen, #levels-screen, #profile-screen, #friends-screen, #leaderboard-screen, #global-stats-screen, #settings-screen, #admin-screen { display: none; z-index: 300; background: rgba(0,0,0,0.95); }
         .logo-main { font-family: 'Impact', sans-serif; font-size: 70px; color: #e50914; text-shadow: 4px 4px #5e0408; margin-bottom: 10px; }
@@ -40,8 +41,8 @@
         #play-btn:active, .action-btn:active { transform: translateY(1px) scale(0.98); box-shadow: 0 2px 0 rgba(0,0,0,0.5), 0 0 8px rgba(229,9,20,0.25); filter: saturate(1.08); }
         #play-btn:focus-visible, .action-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
         #hud { height: 50px; background: #1a1a1a; display: flex; justify-content: space-around; align-items: center; border-bottom: 3px solid #e50914; z-index: 100; padding: 0 10px; }
-        canvas { width: 100%; height: 100%; image-rendering: pixelated; display: block; cursor: crosshair; }
-        #side { width: 160px; background: #151515; padding: 15px; border-left: 2px solid #e50914; text-align: center; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; z-index: 50; overflow-y: scroll; scrollbar-width: none; }
+        canvas { width: 100%; height: 100%; image-rendering: pixelated; display: block; cursor: crosshair; touch-action: none; }
+        #side { width: 160px; flex-shrink: 0; background: #151515; padding: 15px; border-left: 2px solid #e50914; text-align: center; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; z-index: 50; overflow-y: scroll; scrollbar-width: none; }
         #side::-webkit-scrollbar { display: none; }
         .skin-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; padding: 10px; background: #111; border: 1px solid #333; border-radius: 5px; min-width: 320px; max-height: 400px; overflow-y: auto; }
         .skin-slot { width: 60px; height: 60px; cursor: pointer; border: 3px solid #333; transition: 0.2s; border-radius: 4px; background-size: cover; image-rendering: pixelated; position: relative; }
@@ -651,6 +652,54 @@
             #set-control-pill { gap: 4px; padding: 3px; }
             .settings-control-option { padding: 7px 9px; font-size: 11px; }
             .admin-dashboard { flex-direction: column; width: 94%; }
+        }
+        @media (max-width: 760px), (max-height: 520px) {
+            #main-wrapper { flex-direction: column; }
+            #game-area { flex: 1 1 auto; }
+            #side {
+                width: 100%;
+                height: 108px;
+                min-height: 108px;
+                padding: 8px;
+                border-left: none;
+                border-top: 2px solid #e50914;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 8px;
+                overflow-x: auto;
+                overflow-y: hidden;
+            }
+            #side h3 {
+                width: 72px;
+                min-width: 72px;
+                margin: 0 !important;
+                font-size: 14px !important;
+                line-height: 1.05;
+            }
+            #side .action-btn {
+                width: 112px !important;
+                min-width: 112px;
+                height: 42px;
+                margin: 0 !important;
+                padding: 7px !important;
+                font-size: 10px !important;
+                flex: 0 0 auto;
+            }
+            #side-auth-btns {
+                width: 112px !important;
+                min-width: 112px;
+                margin-top: 0 !important;
+                gap: 6px !important;
+                flex: 0 0 auto;
+            }
+            #side-level-btn { font-size: 18px !important; }
+            #lb-preview, #st {
+                min-width: 104px;
+                margin: 0 !important;
+                flex: 0 0 auto;
+            }
+            #stats-panel { display: none !important; }
         }
         @media (max-width: 620px) {
             .admin-inline { flex-direction: column; }
@@ -2883,7 +2932,36 @@ const mobileKeyRightBtnEl = document.getElementById("mobile-key-right");
 const mobileKeyDownBtnEl = document.getElementById("mobile-key-down");
 const mobileSprintBtnEl = document.getElementById("mobile-sprint-btn");
 const fpsCounterEl = document.getElementById("fps-counter");
-function res() { canvas.width = document.getElementById("game-area").clientWidth; canvas.height = document.getElementById("game-area").clientHeight; } window.onresize = res; res();
+const MIN_GAME_WIDTH = 360;
+const MIN_GAME_HEIGHT = 240;
+function res() {
+    const gameArea = document.getElementById("game-area");
+    if (!gameArea) return;
+
+    const oldW = canvas.width || 0;
+    const oldH = canvas.height || 0;
+    const nextW = Math.max(MIN_GAME_WIDTH, Math.floor(gameArea.clientWidth));
+    const nextH = Math.max(MIN_GAME_HEIGHT, Math.floor(gameArea.clientHeight));
+    if (oldW === nextW && oldH === nextH) return;
+
+    canvas.width = nextW;
+    canvas.height = nextH;
+
+    if (p && oldW && oldH) {
+        p.x *= nextW / oldW;
+        p.y *= nextH / oldH;
+        p.x = Math.max(0, Math.min(nextW - p.s, p.x));
+        p.y = Math.max(0, Math.min(nextH - p.s, p.y));
+    }
+    if (mouseControlState.active && oldW && oldH) {
+        mouseControlState.x *= nextW / oldW;
+        mouseControlState.y *= nextH / oldH;
+        mouseControlState.x = Math.max(0, Math.min(nextW, mouseControlState.x));
+        mouseControlState.y = Math.max(0, Math.min(nextH, mouseControlState.y));
+    }
+}
+window.addEventListener("resize", res);
+res();
 function showLoading(text) { document.getElementById("loading-text").innerText = text; document.getElementById("loading-screen").style.display = "flex"; }
 function hideLoading() { document.getElementById("loading-screen").style.display = "none"; }
 function openDevPage() { document.getElementById("dev-page").style.display = "block"; }
